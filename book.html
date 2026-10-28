@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sunscape · Radovići, Tivat</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter+Tight:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#F4F1EA;color:#0E1A24;font-family:"Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:#0F4C6E}
+@keyframes stepin{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div data-curtain="" style="position:fixed;inset:0;z-index:190;background:#0C1820;color:#F4F1EA;display:flex;align-items:center;justify-content:center;transform:translateY(100%);pointer-events:none">
+  <span data-curtain-label="" style="font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(56px,10vw,150px)"></span>
+</div>
+
+<header style="position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;width:min(1180px,calc(100% - 24px))">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 8px 8px 22px;border-radius:999px;background:rgba(244,241,234,.62);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.5);box-shadow:0 12px 40px rgba(12,24,32,.12)">
+    <a href="index.html" data-page="Početna" style="font-family:'Instrument Serif',serif;font-size:26px;color:#0E1A24">Sunscape</a>
+    <nav style="display:flex;gap:clamp(14px,2.4vw,30px);font-size:14px;color:#0E1A24">
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <a href="apartment.html" data-page="Apartman">Apartman</a>
+        <a href="location.html" data-page="Lokacija">Lokacija</a>
+      </sc-if>
+      <a href="gallery.html" data-page="Galerija" style="padding-right:12px">Galerija</a>
+    </nav>
+  </div>
+</header>
+
+<section data-screen-label="Rezervacija hero" style="padding:10px">
+  <div style="position:relative;height:60svh;min-height:420px;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,4vw,56px);color:#F4F1EA">
+    <img src="uploads/11_balkon.avif" alt="Terasa" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,24,32,.1),rgba(12,24,32,.7))"></div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#E9D9B8">Rezervacija</span>
+      <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(56px,9vw,140px);line-height:.92;letter-spacing:-.025em">Rezervišite <em style="color:#E9D9B8">boravak</em></h1>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Booking" style="padding:clamp(40px,6vw,80px) clamp(16px,5vw,80px) clamp(60px,8vw,120px);max-width:1400px;margin:0 auto;display:grid;grid-template-columns:{{ gridCols }};gap:clamp(20px,3vw,40px);align-items:start">
+  <div style="min-width:0;display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase">
+        <span style="color:{{ c1 }}">1 Datumi</span><span style="color:{{ c2 }}">2 Podaci</span><span style="color:{{ c3 }}">3 Potvrda</span>
+      </div>
+      <div style="height:2px;border-radius:2px;background:rgba(0,0,0,.08);overflow:hidden">
+        <div style="height:100%;width:{{ progress }};background:#0F4C6E;transition:width 1s cubic-bezier(.16,1,.3,1)"></div>
+      </div>
+    </div>
+
+    <sc-if value="{{ s1 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:24px;animation:stepin .9s cubic-bezier(.16,1,.3,1) both">
+        <!-- OVDE KASNIJE IDE PRAVI BOOKING (Smoobu) -->
+        <div style="padding:clamp(16px,2.4vw,28px);border-radius:24px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.55);display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(30px,3vw,40px);line-height:1">Izaberite <em style="color:#0F4C6E">datume</em></h2>
+            <div style="display:flex;gap:8px">
+              <button onClick="{{ prevM }}" disabled="{{ prevDis }}" aria-label="Prethodni mesec" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:transparent;font-size:18px;cursor:pointer;opacity:{{ prevOp }}">←</button>
+              <button onClick="{{ nextM }}" aria-label="Sledeći mesec" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:transparent;font-size:18px;cursor:pointer">→</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(20px,3vw,40px)">
+            <sc-for list="{{ months }}" as="mo" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <span style="font-family:'Instrument Serif',serif;font-size:24px;text-transform:capitalize">{{ mo.label }}</span>
+                <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(14,26,36,.5);text-align:center">
+                  <span>Pon</span><span>Uto</span><span>Sre</span><span>Čet</span><span>Pet</span><span>Sub</span><span>Ned</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px 0">
+                  <sc-for list="{{ mo.days }}" as="d" hint-placeholder-count="35">
+                    <button onClick="{{ d.click }}" disabled="{{ d.dis }}" style="height:44px;border:0;border-radius:{{ d.r }};background:{{ d.bg }};color:{{ d.fg }};text-decoration:{{ d.deco }};font:500 14px 'Inter Tight',sans-serif;cursor:{{ d.cur }};padding:0;transition:background .5s cubic-bezier(.16,1,.3,1),color .4s,border-radius .4s">{{ d.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:rgba(14,26,36,.6)">
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#0F4C6E"></span>Izabrano</span>
+            <span style="display:flex;align-items:center;gap:6px"><span style="text-decoration:line-through">12</span>Zauzeto</span>
+          </div>
+          <sc-if value="{{ calMsg }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:14px;color:#9A3B2E">{{ calMsg }}</span>
+          </sc-if>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 24px;border-radius:24px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.55)">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Instrument Serif',serif;font-size:26px">Gosti</span><span style="font-size:13px;color:rgba(14,26,36,.6)">Najviše {{ maxGuests }} osobe</span></div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <button onClick="{{ gMinus }}" aria-label="Manje gostiju" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.15);background:transparent;font-size:20px;cursor:pointer">−</button>
+            <span style="font-family:'Instrument Serif',serif;font-size:34px;min-width:24px;text-align:center">{{ guests }}</span>
+            <button onClick="{{ gPlus }}" aria-label="Više gostiju" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.15);background:transparent;font-size:20px;cursor:pointer">+</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:clamp(16px,2.4vw,28px);border-radius:24px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.55);display:flex;flex-direction:column;gap:20px;animation:stepin .9s cubic-bezier(.16,1,.3,1) both">
+        <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(30px,3vw,40px);line-height:1">Vaši <em style="color:#0F4C6E">podaci</em></h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px">Ime i prezime<input name="name" value="{{ f.name }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" autocomplete="name" style="height:50px;padding:0 16px;border-radius:14px;border:1px solid {{ b.name }};background:#FBFAF6;font:400 16px 'Inter Tight',sans-serif;outline:none"><span style="color:#9A3B2E;min-height:16px">{{ e.name }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px">Email<input name="email" type="email" value="{{ f.email }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" autocomplete="email" style="height:50px;padding:0 16px;border-radius:14px;border:1px solid {{ b.email }};background:#FBFAF6;font:400 16px 'Inter Tight',sans-serif;outline:none"><span style="color:#9A3B2E;min-height:16px">{{ e.email }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px">Telefon / WhatsApp<input name="phone" type="tel" value="{{ f.phone }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" autocomplete="tel" style="height:50px;padding:0 16px;border-radius:14px;border:1px solid {{ b.phone }};background:#FBFAF6;font:400 16px 'Inter Tight',sans-serif;outline:none"><span style="color:#9A3B2E;min-height:16px">{{ e.phone }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px">Zemlja<input name="country" value="{{ f.country }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" autocomplete="country-name" style="height:50px;padding:0 16px;border-radius:14px;border:1px solid {{ b.country }};background:#FBFAF6;font:400 16px 'Inter Tight',sans-serif;outline:none"><span style="color:#9A3B2E;min-height:16px">{{ e.country }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px">Vreme dolaska
+            <select name="arrival" value="{{ f.arrival }}" onChange="{{ onField }}" onBlur="{{ onBlur }}" style="height:50px;padding:0 12px;border-radius:14px;border:1px solid {{ b.arrival }};background:#FBFAF6;font:400 16px 'Inter Tight',sans-serif;outline:none">
+              <option value="">Izaberite</option>
+              <sc-for list="{{ times }}" as="t" hint-placeholder-count="16"><option value="{{ t }}">{{ t }}</option></sc-for>
+            </select>
+            <span style="color:#9A3B2E;min-height:16px">{{ e.arrival }}</span>
+          </label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px">Napomena (opciono)<textarea name="note" value="{{ f.note }}" onChange="{{ onField }}" rows="4" style="padding:14px 16px;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:#FBFAF6;font:400 16px 'Inter Tight',sans-serif;outline:none;resize:vertical"></textarea></label>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:clamp(16px,2.4vw,28px);border-radius:24px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.55);display:flex;flex-direction:column;gap:20px;animation:stepin .9s cubic-bezier(.16,1,.3,1) both">
+        <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(30px,3vw,40px);line-height:1">Proverite <em style="color:#0F4C6E">rezervaciju</em></h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px">
+          <sc-for list="{{ review }}" as="rv" hint-placeholder-count="8">
+            <div style="padding:16px 18px;border-radius:16px;background:#FBFAF6;border:1px solid rgba(0,0,0,.06);display:flex;flex-direction:column;gap:4px;min-width:0">
+              <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,26,36,.55)">{{ rv.k }}</span>
+              <span style="font-size:16px;overflow-wrap:anywhere">{{ rv.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:clamp(36px,6vw,72px) 24px;border-radius:24px;background:#0C1820;color:#F4F1EA;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;animation:pop .9s cubic-bezier(.16,1,.3,1) both">
+        <svg width="88" height="88" viewBox="0 0 88 88" fill="none"><circle cx="44" cy="44" r="40" stroke="#C2A273" stroke-width="2" stroke-dasharray="252" stroke-dashoffset="252" style="animation:draw 1s cubic-bezier(.16,1,.3,1) forwards"></circle><path d="M28 45l11 11 22-24" stroke="#F4F1EA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="60" stroke-dashoffset="60" style="animation:draw .8s cubic-bezier(.16,1,.3,1) .7s forwards"></path></svg>
+        <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1">Zahtev je <em style="color:#C2A273">primljen!</em></h2>
+        <p style="margin:0;max-width:420px;font-size:16px;line-height:1.55;color:rgba(244,241,234,.8)">Potvrdićemo vašu rezervaciju u roku od 24h.</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;justify-content:space-between;gap:12px">
+        <button onClick="{{ back }}" style="height:52px;padding:0 24px;border-radius:999px;border:1px solid rgba(0,0,0,.15);background:transparent;font:500 15px 'Inter Tight',sans-serif;cursor:pointer;visibility:{{ backVis }}">← Nazad</button>
+        <button onClick="{{ cont }}" style="height:52px;padding:0 28px;border-radius:999px;border:0;background:{{ contBg }};color:#F4F1EA;font:500 15px 'Inter Tight',sans-serif;cursor:pointer;transition:background .4s">{{ contLabel }} →</button>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <aside style="position:sticky;top:100px;padding:10px;border-radius:24px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.6);display:flex;flex-direction:column;gap:10px">
+      <img src="uploads/02_dnevni_boravak.avif" alt="Sunscape apartman" loading="lazy" style="width:100%;height:170px;object-fit:cover;border-radius:16px;display:block">
+      <div style="padding:10px 12px 12px;display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:'Instrument Serif',serif;font-size:30px;line-height:1">Vaš <em style="color:#0F4C6E">boravak</em></span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="padding:12px;border-radius:14px;background:#FBFAF6;display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,26,36,.55)">Dolazak</span><span style="font-size:15px">{{ ciLabel }}</span></div>
+          <div style="padding:12px;border-radius:14px;background:#FBFAF6;display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,26,36,.55)">Odlazak</span><span style="font-size:15px">{{ coLabel }}</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:14px">
+          <div style="display:flex;justify-content:space-between"><span>Gosti</span><span>{{ guests }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span>€{{ price }} × {{ dNights }} noći</span><span>€{{ dSub }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Čišćenje</span><span>€{{ dClean }}</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(0,0,0,.1);padding-top:12px;margin-top:4px"><span style="font-weight:500">Ukupno</span><span style="font-family:'Instrument Serif',serif;font-size:36px;color:#0F4C6E">€{{ dTotal }}</span></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;font-size:12px">
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,.1)">Besplatan parking</span>
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,.1)">Wi-Fi</span>
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,.1)">Terasa</span>
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,.1)">Dolazak 15:00–22:30</span>
+        </div>
+      </div>
+    </aside>
+  </sc-if>
+</section>
+
+<section data-screen-label="Kontakt" style="padding:0 clamp(16px,5vw,80px) clamp(80px,10vw,140px);max-width:1400px;margin:0 auto">
+  <div style="padding:clamp(28px,4vw,48px);border-radius:24px;border:1px solid rgba(0,0,0,.08);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px">
+    <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(34px,4vw,56px);line-height:1">Radije <em style="color:#0F4C6E">razgovarate?</em></h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <a href="https://wa.me/38269260004" style="display:flex;align-items:center;height:52px;padding:0 24px;border-radius:999px;background:#0E1A24;color:#F4F1EA;font-size:15px;transition:background .4s" style-hover="background:#0F4C6E;color:#F4F1EA">WhatsApp · +382 69 260 004</a>
+      <a href="viber://chat?number=%2B38269260004" style="display:flex;align-items:center;height:52px;padding:0 24px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:15px">Viber</a>
+    </div>
+  </div>
+</section>
+
+<footer data-screen-label="Footer" style="padding:0 10px {{ footPad }}">
+  <div style="background:#0C1820;color:#F4F1EA;border-radius:24px;padding:clamp(48px,7vw,90px) clamp(20px,5vw,80px) 32px;display:flex;flex-direction:column;gap:clamp(40px,6vw,70px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:32px;font-size:14px;line-height:1.7">
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'Instrument Serif',serif;font-size:28px;line-height:1">Sunscape</span><span style="color:rgba(244,241,234,.65)">Privatni apartman u Radovićima. Domaćin Igor, Superdomaćin.</span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C2A273;margin-bottom:6px">Stranice</span><a href="index.html" data-page="Početna">Početna</a><a href="apartment.html" data-page="Apartman">Apartman</a><a href="location.html" data-page="Lokacija">Lokacija</a><a href="gallery.html" data-page="Galerija">Galerija</a></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C2A273;margin-bottom:6px">Kontakt</span><a href="https://wa.me/38269260004">WhatsApp · +382 69 260 004</a><a href="viber://chat?number=%2B38269260004">Viber · +382 69 260 004</a></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C2A273;margin-bottom:6px">Lokacija</span><span>Radovići</span><span>85320 Tivat, Crna Gora</span></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:rgba(244,241,234,.5)"><span>© 2026 Sunscape</span><span>Radovići · Tivat · Boka Kotorska</span></div>
+  </div>
+</footer>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:8px;right:8px;bottom:8px;z-index:70;border-radius:24px;background:#0C1820;color:#F4F1EA;box-shadow:0 -10px 40px rgba(12,24,32,.25);overflow:hidden">
+    <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:20px 20px 6px;display:flex;flex-direction:column;gap:10px;font-size:14px;animation:stepin .6s cubic-bezier(.16,1,.3,1) both">
+        <span style="font-family:'Instrument Serif',serif;font-size:26px">Vaš <em style="color:#C2A273">boravak</em></span>
+        <div style="display:flex;justify-content:space-between"><span>Dolazak</span><span>{{ ciLabel }}</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Odlazak</span><span>{{ coLabel }}</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Gosti</span><span>{{ guests }}</span></div>
+        <div style="display:flex;justify-content:space-between"><span>€{{ price }} × {{ dNights }} noći</span><span>€{{ dSub }}</span></div>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:10px"><span>Čišćenje</span><span>€{{ dClean }}</span></div>
+      </div>
+    </sc-if>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 20px">
+      <button onClick="{{ toggleSheet }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:0;border:0;background:transparent;color:#F4F1EA;padding:0;cursor:pointer;min-height:44px">
+        <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#C2A273">Ukupno {{ sheetArrow }}</span>
+        <span style="font-family:'Instrument Serif',serif;font-size:30px;line-height:1">€{{ dTotal }}</span>
+      </button>
+      <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ cont }}" style="height:50px;padding:0 24px;border-radius:999px;border:0;background:#F4F1EA;color:#0E1A24;font:500 15px 'Inter Tight',sans-serif;cursor:pointer">{{ contLabel }}</button>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// ---- Cene i zauzeti datumi: menjaj ovde ----
+const PRICE_PER_NIGHT = 150;
+const CLEANING_FEE = 40;
+const MIN_NIGHTS = 2;
+const MAX_GUESTS = 4;
+const BOOKED_DATES = ['2026-11-06', '2026-11-07', '2026-11-08', '2026-11-14', '2026-11-20', '2026-11-21', '2026-11-22', '2026-12-05', '2026-12-06', '2026-12-24', '2026-12-25', '2026-12-26', '2026-12-31', '2027-01-01'];
+
+const pad = n => String(n).padStart(2, '0');
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parse = s => new Date(s + 'T00:00:00');
+const nightsBetween = (a, b) => Math.round((parse(b) - parse(a)) / 864e5);
+const fmt = s => s ? parse(s).toLocaleDateString('sr-Latn', { weekday: 'short', day: 'numeric', month: 'short' }) : '—';
+const TODAY = iso(new Date());
+const BOOKED = new Set(BOOKED_DATES);
+const TIMES = []; for (let m = 15 * 60; m <= 22 * 60 + 30; m += 30) TIMES.push(`${pad(m / 60 | 0)}:${pad(m % 60)}`);
+const VALID = {
+  name: v => v.trim().length >= 2 || 'Unesite ime i prezime',
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Unesite ispravan email',
+  phone: v => v.replace(/\D/g, '').length >= 7 || 'Unesite broj telefona',
+  country: v => v.trim().length >= 2 || 'Unesite zemlju',
+  arrival: v => !!v || 'Izaberite vreme dolaska'
+};
+const sum = (ci, co) => { const n = ci && co ? nightsBetween(ci, co) : 0; return { n, sub: n * PRICE_PER_NIGHT, clean: n ? CLEANING_FEE : 0, total: n ? n * PRICE_PER_NIGHT + CLEANING_FEE : 0 }; };
+
+class Component extends DCLogic {
+  state = (() => {
+    const p = new URLSearchParams(location.search);
+    let ci = p.get('checkin'), co = p.get('checkout');
+    const ok = s => s && /^\d{4}-\d{2}-\d{2}$/.test(s) && s >= TODAY;
+    if (!ok(ci)) ci = null;
+    if (!ok(co) || !ci || co <= ci) co = null;
+    const g = Math.min(MAX_GUESTS, Math.max(1, parseInt(p.get('guests')) || 2));
+    const base = parse(ci || TODAY);
+    const s = sum(ci, co);
+    return {
+      step: 1, done: false, ci, co, guests: g, calMsg: '',
+      vm: { y: base.getFullYear(), m: base.getMonth() },
+      f: { name: '', email: '', phone: '', country: '', arrival: '', note: '' }, touched: {},
+      isMobile: matchMedia('(max-width: 900px)').matches, sheetOpen: false,
+      disp: { n: s.n, sub: s.sub, clean: s.clean, total: s.total }
+    };
+  })();
+
+  componentDidMount() {
+    const off = this._off = [], on = (t, e, f) => { t.addEventListener(e, f); off.push(() => t.removeEventListener(e, f)); };
+    const mq = matchMedia('(max-width: 900px)'); on(mq, 'change', () => this.setState({ isMobile: mq.matches }));
+    const cur = document.querySelector('[data-curtain]'), lbl = document.querySelector('[data-curtain-label]'), ease = 'transform .9s cubic-bezier(.76,0,.24,1)';
+    if (sessionStorage.getItem('sunscape-trans')) {
+      sessionStorage.removeItem('sunscape-trans');
+      cur.style.transition = 'none'; cur.style.transform = 'translateY(0)';
+      requestAnimationFrame(() => requestAnimationFrame(() => { cur.style.transition = ease; cur.style.transform = 'translateY(-100%)'; }));
+    }
+    on(document, 'click', e => {
+      const a = e.target.closest('a[data-page]'); if (!a || e.metaKey || e.ctrlKey) return;
+      e.preventDefault(); lbl.textContent = a.dataset.page;
+      cur.style.transition = 'none'; cur.style.transform = 'translateY(100%)'; void cur.offsetHeight;
+      cur.style.transition = ease; cur.style.transform = 'translateY(0)';
+      sessionStorage.setItem('sunscape-trans', '1'); setTimeout(() => (location.href = a.href), 950);
+    });
+  }
+  componentWillUnmount() { this._off.forEach(f => f()); cancelAnimationFrame(this._tw); }
+
+  componentDidUpdate(_, prev) {
+    if (prev.ci === this.state.ci && prev.co === this.state.co) return;
+    const from = { ...this.state.disp }, to = sum(this.state.ci, this.state.co), t0 = performance.now();
+    cancelAnimationFrame(this._tw);
+    const tick = t => {
+      const p = Math.min(1, (t - t0) / 900), k = 1 - Math.pow(2, -10 * p), L = (a, b) => Math.round(a + (b - a) * (p < 1 ? k : 1));
+      this.setState({ disp: { n: L(from.n, to.n), sub: L(from.sub, to.sub), clean: L(from.clean, to.clean), total: L(from.total, to.total) } });
+      if (p < 1) this._tw = requestAnimationFrame(tick);
+    };
+    this._tw = requestAnimationFrame(tick);
+  }
+
+  pick(d) {
+    const { ci, co } = this.state;
+    if (!ci || co || d <= ci) return this.setState({ ci: d, co: null, calMsg: '' });
+    for (let x = parse(ci); iso(x) < d; x.setDate(x.getDate() + 1)) if (BOOKED.has(iso(x))) return this.setState({ ci: d, co: null, calMsg: 'Izabrani period sadrži zauzete datume. Počnite od novog datuma dolaska.' });
+    if (nightsBetween(ci, d) < MIN_NIGHTS) return this.setState({ calMsg: `Minimalan boravak je ${MIN_NIGHTS} noći.` });
+    this.setState({ co: d, calMsg: '' });
+  }
+
+  errors() { const e = {}; for (const k in VALID) { const r = VALID[k](this.state.f[k]); e[k] = r === true ? '' : r; } return e; }
+
+  cont() {
+    const { step, ci, co } = this.state;
+    if (step === 1) {
+      if (!ci || !co) return this.setState({ calMsg: 'Izaberite datum dolaska i odlaska.' });
+      return this.setState({ step: 2, calMsg: '' });
+    }
+    if (step === 2) {
+      const e = this.errors();
+      if (Object.values(e).some(Boolean)) return this.setState({ touched: { name: 1, email: 1, phone: 1, country: 1, arrival: 1 } });
+      return this.setState({ step: 3 });
+    }
+    if (step === 3) this.setState({ done: true, step: 4, sheetOpen: false });
+  }
+
+  month(y, m) {
+    const { ci, co } = this.state, first = new Date(y, m, 1), lead = (first.getDay() + 6) % 7, count = new Date(y, m + 1, 0).getDate();
+    const days = Array.from({ length: lead }, () => ({ label: '', dis: true, bg: 'transparent', fg: 'inherit', deco: 'none', r: '0', cur: 'default', click: null }));
+    for (let i = 1; i <= count; i++) {
+      const d = iso(new Date(y, m, i)), past = d < TODAY, booked = BOOKED.has(d);
+      const end = d === ci || d === co, inR = ci && co && d > ci && d < co;
+      days.push({
+        label: i, dis: past || booked,
+        bg: end ? '#0F4C6E' : inR ? '#DCE7EC' : 'transparent',
+        fg: end ? '#F4F1EA' : past || booked ? 'rgba(14,26,36,.28)' : '#0E1A24',
+        deco: booked ? 'line-through' : 'none',
+        r: end ? '12px' : inR ? '0' : '12px',
+        cur: past || booked ? 'not-allowed' : 'pointer',
+        click: () => this.pick(d)
+      });
+    }
+    return { label: first.toLocaleDateString('sr-Latn', { month: 'long', year: 'numeric' }), days };
+  }
+
+  renderVals() {
+    const st = this.state, { y, m } = st.vm, now = new Date(), nMonths = st.isMobile ? 1 : 2;
+    const months = Array.from({ length: nMonths }, (_, i) => { const d = new Date(y, m + i, 1); return this.month(d.getFullYear(), d.getMonth()); });
+    const atStart = y === now.getFullYear() && m === now.getMonth();
+    const errs = this.errors(), e = {}, b = {};
+    for (const k in VALID) { e[k] = st.touched[k] ? errs[k] : ''; b[k] = e[k] ? '#9A3B2E' : 'rgba(0,0,0,.12)'; }
+    const s = sum(st.ci, st.co), step = st.step;
+    const canCont = step === 1 ? !!(st.ci && st.co) : step === 2 ? !Object.values(errs).some(Boolean) : true;
+    const col = n => step >= n ? '#0F4C6E' : 'rgba(14,26,36,.4)';
+    return {
+      isMobile: st.isMobile, isDesktop: !st.isMobile,
+      gridCols: st.isMobile ? 'minmax(0,1fr)' : 'minmax(0,1fr) 380px',
+      footPad: st.isMobile ? '110px' : '10px',
+      s1: step === 1, s2: step === 2, s3: step === 3, done: st.done, showNav: !st.done,
+      progress: Math.min(100, (Math.min(step, 3) / 3) * 100) + '%', c1: col(1), c2: col(2), c3: col(3),
+      months, prevDis: atStart, prevOp: atStart ? 0.3 : 1,
+      prevM: () => !atStart && this.setState({ vm: { y: m === 0 ? y - 1 : y, m: (m + 11) % 12 } }),
+      nextM: () => this.setState({ vm: { y: m === 11 ? y + 1 : y, m: (m + 1) % 12 } }),
+      calMsg: st.calMsg, maxGuests: MAX_GUESTS, guests: st.guests,
+      gMinus: () => this.setState(p => ({ guests: Math.max(1, p.guests - 1) })),
+      gPlus: () => this.setState(p => ({ guests: Math.min(MAX_GUESTS, p.guests + 1) })),
+      f: st.f, e, b, times: TIMES,
+      onField: ev => { const { name, value } = ev.target; this.setState(p => ({ f: { ...p.f, [name]: value } })); },
+      onBlur: ev => { const n = ev.target.name; this.setState(p => ({ touched: { ...p.touched, [n]: 1 } })); },
+      review: [
+        { k: 'Dolazak', v: fmt(st.ci) }, { k: 'Odlazak', v: fmt(st.co) },
+        { k: 'Broj noći', v: String(s.n) }, { k: 'Gosti', v: String(st.guests) },
+        { k: 'Ime', v: st.f.name }, { k: 'Email', v: st.f.email },
+        { k: 'Telefon', v: st.f.phone }, { k: 'Zemlja', v: st.f.country },
+        { k: 'Vreme dolaska', v: st.f.arrival }, { k: 'Ukupno', v: '€' + s.total }
+      ].concat(st.f.note ? [{ k: 'Napomena', v: st.f.note }] : []),
+      back: () => this.setState(p => ({ step: Math.max(1, p.step - 1) })), backVis: step > 1 ? 'visible' : 'hidden',
+      cont: () => this.cont(),
+      contLabel: step === 3 ? 'Pošalji zahtev' : 'Nastavi',
+      contBg: canCont ? '#0E1A24' : 'rgba(14,26,36,.35)',
+      ciLabel: fmt(st.ci), coLabel: fmt(st.co), price: PRICE_PER_NIGHT,
+      dNights: st.disp.n, dSub: st.disp.sub, dClean: st.disp.clean, dTotal: st.disp.total,
+      sheetOpen: st.sheetOpen, sheetArrow: st.sheetOpen ? '▾' : '▴',
+      toggleSheet: () => this.setState(p => ({ sheetOpen: !p.sheetOpen }))
+    };
+  }
+}
+</script>
+</body>
+</html>

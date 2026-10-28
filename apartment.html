@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sunscape · Radovići, Tivat</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter+Tight:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#F4F1EA;color:#0E1A24;font-family:"Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:#0F4C6E}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div data-curtain="" style="position:fixed;inset:0;z-index:190;background:#0C1820;color:#F4F1EA;display:flex;align-items:center;justify-content:center;transform:translateY(100%);pointer-events:none">
+  <span data-curtain-label="" style="font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(56px,10vw,150px)"></span>
+</div>
+
+<header style="position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;width:min(1180px,calc(100% - 24px))">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 8px 8px 22px;border-radius:999px;background:rgba(244,241,234,.62);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.5);box-shadow:0 12px 40px rgba(12,24,32,.12)">
+    <a href="index.html" data-page="Početna" style="font-family:'Instrument Serif',serif;font-size:26px;color:#0E1A24">Sunscape</a>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;gap:30px;font-size:14px;color:#0E1A24">
+        <a href="apartment.html" style="color:#0F4C6E">Apartman</a>
+        <a href="location.html" data-page="Lokacija">Lokacija</a>
+        <a href="gallery.html" data-page="Galerija">Galerija</a>
+        <a href="book.html" data-page="Rezervacija">Rezerviši</a>
+      </nav>
+    </sc-if>
+    <a href="book.html" data-page="Rezervacija" style="display:flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;background:#0E1A24;color:#F4F1EA;font-size:14px;transition:background .4s" style-hover="background:#0F4C6E;color:#F4F1EA">Rezerviši <span>→</span></a>
+  </div>
+</header>
+
+<section data-screen-label="Apartman hero" style="padding:10px">
+  <div style="position:relative;min-height:calc(100svh - 20px);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,4vw,56px);color:#F4F1EA">
+    <img src="uploads/03_dnevni_boravak.avif" alt="Dnevna soba i kuhinja" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,24,32,.1) 30%,rgba(12,24,32,.75))"></div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:16px">
+      <span style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#E9D9B8">45 m² · Radovići</span>
+      <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(60px,10vw,160px);line-height:.9;letter-spacing:-.025em"><em style="color:#E9D9B8">Apartman</em></h1>
+      <p style="margin:0;max-width:480px;font-size:clamp(16px,1.4vw,19px);line-height:1.55;color:rgba(244,241,234,.9)">Nov, potpuno opremljen i svetao. Prostor za do četiri gosta, sa terasom koja hvata jutarnje sunce.</p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Prostorije" style="padding:clamp(80px,10vw,140px) clamp(20px,5vw,80px);max-width:1400px;margin:0 auto;display:grid;grid-template-columns:{{ gridCols }};gap:clamp(28px,5vw,80px);align-items:start">
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <div style="position:sticky;top:120px;display:flex;flex-direction:column;gap:28px">
+      <span style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#0F4C6E">Prostorije</span>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="5">
+          <div style="display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.08);opacity:{{ r.op }};transition:opacity .6s">
+            <span style="font-size:12px;letter-spacing:.14em;color:#C2A273">{{ r.num }}</span>
+            <span style="font-family:'Instrument Serif',serif;font-size:clamp(30px,3vw,44px);line-height:1">{{ r.title }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:0;max-width:400px;font-size:16px;line-height:1.6;color:rgba(14,26,36,.75);min-height:78px">{{ activeText }}</p>
+    </div>
+  </sc-if>
+  <div style="display:flex;flex-direction:column;gap:clamp(16px,2vw,24px)">
+    <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="5">
+      <figure data-room="{{ r.i }}" style="margin:0;display:flex;flex-direction:column;gap:14px">
+        <div style="height:clamp(360px,72vh,720px);border-radius:24px;overflow:hidden;background:#E7E2D7">
+          <img src="{{ r.src }}" alt="{{ r.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+          <figcaption style="display:flex;flex-direction:column;gap:6px;padding:0 4px 18px">
+            <span style="font-size:12px;letter-spacing:.14em;color:#C2A273">{{ r.num }}</span>
+            <span style="font-family:'Instrument Serif',serif;font-size:34px;line-height:1">{{ r.title }}</span>
+            <span style="font-size:15px;line-height:1.55;color:rgba(14,26,36,.75)">{{ r.text }}</span>
+          </figcaption>
+        </sc-if>
+      </figure>
+    </sc-for>
+  </div>
+</section>
+
+<section data-screen-label="Pregled" style="padding:0 clamp(10px,3vw,48px) clamp(80px,10vw,140px);max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:10px">
+  <div style="padding:10px;border-radius:24px;background:#0C1820;color:#F4F1EA">
+    <div style="height:100%;padding:clamp(24px,3vw,40px);border-radius:16px;border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:28px">
+      <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(36px,4vw,56px);line-height:1">Pregled <em style="color:#C2A273">prostora</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1">45 m²</span><span style="font-size:13px;color:rgba(244,241,234,.65)">površina</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1">1</span><span style="font-size:13px;color:rgba(244,241,234,.65)">spavaća soba</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1">2</span><span style="font-size:13px;color:rgba(244,241,234,.65)">kreveta: bračni + sofa</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1">1</span><span style="font-size:13px;color:rgba(244,241,234,.65)">kupatilo sa tušem</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1">4</span><span style="font-size:13px;color:rgba(244,241,234,.65)">gosta</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1">A/C</span><span style="font-size:13px;color:rgba(244,241,234,.65)">klima uređaj</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:10px;border-radius:24px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.45)">
+    <div style="height:100%;padding:clamp(24px,3vw,40px);border-radius:16px;background:#FBFAF6;display:flex;flex-direction:column;gap:28px">
+      <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(36px,4vw,56px);line-height:1">Kućni <em style="color:#0F4C6E">red</em></h2>
+      <div style="display:flex;flex-direction:column">
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.08)"><span>Dolazak</span><span style="color:#0F4C6E">15:00–22:30</span></div>
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.08)"><span>Odlazak</span><span style="color:#0F4C6E">do 10:00</span></div>
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.08)"><span>Deca</span><span style="color:#0F4C6E">dobrodošla</span></div>
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.08)"><span>Kućni ljubimci</span><span style="color:#0F4C6E">dozvoljeni</span></div>
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.08)"><span>Pušenje</span><span style="color:#0F4C6E">zabranjeno</span></div>
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:14px 0"><span>Žurke</span><span style="color:#0F4C6E">nisu dozvoljene</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer data-screen-label="Footer" style="padding:0 10px 10px">
+  <div style="background:#0C1820;color:#F4F1EA;border-radius:24px;padding:clamp(60px,9vw,120px) clamp(20px,5vw,80px) 32px;display:flex;flex-direction:column;gap:clamp(48px,7vw,90px)">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px">
+      <h2 style="margin:0;max-width:900px;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(50px,8vw,124px);line-height:.92;letter-spacing:-.025em">Vaš <em style="color:#C2A273">beg</em> u Boku čeka</h2>
+      <a href="book.html" data-page="Rezervacija" style="display:flex;align-items:center;gap:10px;height:56px;padding:0 28px;border-radius:999px;background:#F4F1EA;color:#0E1A24;font-size:15px;font-weight:500;transition:background .4s" style-hover="background:#C2A273;color:#0E1A24">Rezerviši boravak <span>→</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:32px;font-size:14px;line-height:1.7;border-top:1px solid rgba(255,255,255,.12);padding-top:36px">
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'Instrument Serif',serif;font-size:28px;line-height:1">Sunscape</span><span style="color:rgba(244,241,234,.65)">Privatni apartman u Radovićima. Domaćin Igor, Superdomaćin.</span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C2A273;margin-bottom:6px">Stranice</span><a href="index.html" data-page="Početna">Početna</a><a href="location.html" data-page="Lokacija">Lokacija</a><a href="gallery.html" data-page="Galerija">Galerija</a><a href="book.html" data-page="Rezervacija">Rezerviši</a></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C2A273;margin-bottom:6px">Kontakt</span><a href="https://wa.me/38269260004">WhatsApp · +382 69 260 004</a><a href="viber://chat?number=%2B38269260004">Viber · +382 69 260 004</a></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C2A273;margin-bottom:6px">Lokacija</span><span>Radovići</span><span>85320 Tivat, Crna Gora</span></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:rgba(244,241,234,.5)"><span>© 2026 Sunscape</span><span>Radovići · Tivat · Boka Kotorska</span></div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ROOMS = [
+  ['Dnevna soba i trpezarija', '02_dnevni_boravak.avif', 'Svetao otvoren prostor sa sofom na razvlačenje, foteljom, trpezarijskim stolom za četiri osobe i kablovskom TV.'],
+  ['Kuhinja', '07_kuhinja.avif', 'Šporet sa rernom, frižider, mikrotalasna, kuvalo i aparat za espresso. Sve što treba za doručak na terasi.'],
+  ['Spavaća soba', '09_spavaca_soba.avif', 'Veliki bračni krevet (180 cm) ispod kosog plafona, TV i direktan izlaz na terasu.'],
+  ['Kupatilo', '10_kupatilo.avif', 'Tuš kabina, veš mašina, sveži peškiri, posteljina i osnovni toaletni pribor.'],
+  ['Terasa', '11_balkon.avif', 'Sto i dve stolice na otvorenom, za jutarnju kafu i tople večeri iznad krovova Radovića.']
+];
+
+class Component extends DCLogic {
+  state = { active: 0, isMobile: matchMedia('(max-width: 900px)').matches };
+  componentDidMount() {
+    const off = this._off = [], on = (t, e, f) => { t.addEventListener(e, f); off.push(() => t.removeEventListener(e, f)); };
+    const mq = matchMedia('(max-width: 900px)'); on(mq, 'change', () => this.setState({ isMobile: mq.matches }));
+    const cur = document.querySelector('[data-curtain]'), lbl = document.querySelector('[data-curtain-label]'), ease = 'transform .9s cubic-bezier(.76,0,.24,1)';
+    if (sessionStorage.getItem('sunscape-trans')) {
+      sessionStorage.removeItem('sunscape-trans');
+      cur.style.transition = 'none'; cur.style.transform = 'translateY(0)';
+      requestAnimationFrame(() => requestAnimationFrame(() => { cur.style.transition = ease; cur.style.transform = 'translateY(-100%)'; }));
+    }
+    on(document, 'click', e => {
+      const a = e.target.closest('a[data-page]'); if (!a || e.metaKey || e.ctrlKey) return;
+      e.preventDefault(); lbl.textContent = a.dataset.page;
+      cur.style.transition = 'none'; cur.style.transform = 'translateY(100%)'; void cur.offsetHeight;
+      cur.style.transition = ease; cur.style.transform = 'translateY(0)';
+      sessionStorage.setItem('sunscape-trans', '1'); setTimeout(() => (location.href = a.href), 950);
+    });
+    const onScroll = () => {
+      let a = 0;
+      document.querySelectorAll('[data-room]').forEach(el => { if (el.getBoundingClientRect().top < innerHeight * 0.5) a = +el.dataset.room; });
+      if (a !== this.state.active) this.setState({ active: a });
+    };
+    on(window, 'scroll', onScroll); onScroll();
+  }
+  componentWillUnmount() { this._off.forEach(f => f()); }
+  renderVals() {
+    const { active, isMobile } = this.state;
+    return {
+      isMobile, isDesktop: !isMobile,
+      gridCols: isMobile ? 'minmax(0,1fr)' : 'minmax(0,5fr) minmax(0,7fr)',
+      rooms: ROOMS.map(([title, f, text], i) => ({ i, num: String(i + 1).padStart(2, '0'), title, text, src: 'uploads/' + f, op: i === active ? 1 : 0.3 })),
+      activeText: ROOMS[active][2]
+    };
+  }
+}
+</script>
+</body>
+</html>
